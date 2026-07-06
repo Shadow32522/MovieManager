@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="MovieManager.BLL/MovieManager.BLL.csproj" Id="9e741b9c-f223-4062-91f3-0bb1282c3dce" />
+  <Project Path="MovieManager.DAL/MovieManager.DAL.csproj" Id="92c344ba-1892-4698-b418-b3b21624b322" />
+  <Project Path="MovieManager.PL.API/MovieManager.PL.API.csproj" Id="fec46ba4-0262-4c22-b44e-bbdb53c1f133" />
+  <Project Path="MovieManager.PL.MVC/MovieManager.PL.MVC.csproj" />
+</Solution>
