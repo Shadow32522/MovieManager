@@ -29,5 +29,6 @@ namespace MovieManager.DAL.Repositories.Interfaces
         void Remove(T entity);
         
         Task SaveChangesAsync(CancellationToken cancellationToken = default);
+        void Delete<TEntity>(TEntity entity) where TEntity : class;
     }
 }
