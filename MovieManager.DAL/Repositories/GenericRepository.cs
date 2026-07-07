@@ -122,5 +122,10 @@ namespace MovieManager.DAL.Repositories
         {
             await _context.SaveChangesAsync(cancellationToken);
         }
+
+        public void Delete<TEntity>(TEntity entity) where TEntity : class
+        {
+            throw new NotImplementedException();
+        }
     }
 }
