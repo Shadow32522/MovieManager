@@ -15,6 +15,7 @@ namespace MovieManager.DAL.Repositories
         public UnitOfWork(MovieDbContext context)
         {
             _context = context;
+            _repositories = new Dictionary<Type, object>();
         }
 
         public IGenericRepository<T> Repository<T>() where T : class 
