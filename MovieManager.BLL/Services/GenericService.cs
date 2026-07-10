@@ -35,16 +35,16 @@ namespace MovieManager.BLL.Services
             return _mapper.Map<IReadOnlyList<TModel>>(entities);
         }
 
-        public async Task<TModel> CreateAsync(TModel model)
+        public async Task<TModel> CreateAsync(TModel model, CancellationToken cancellationToken = default)
         {
             var entity = _mapper.Map<TEntity>(model);
             await _repository.AddAsync(entity);
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return _mapper.Map<TModel>(entity);
         }
 
-        public async Task<bool> UpdateAsync(TModel model)
+        public async Task<bool> UpdateAsync(TModel model, CancellationToken cancellationToken = default)
         {
             var existingEntity = await _repository.GetByIdAsync(model.Id);
 
@@ -53,20 +53,35 @@ namespace MovieManager.BLL.Services
             _mapper.Map(model, existingEntity);
 
             _repository.Update(existingEntity);
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return true;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)
         {
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null) return false;
 
             _repository.Remove(entity);
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return true;
+        }
+
+        public Task<TModel> CreateAsync(TModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UpdateAsync(TModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
