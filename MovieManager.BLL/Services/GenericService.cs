@@ -3,6 +3,7 @@ using MovieManager.BLL.Services.Interfaces;
 using MovieManager.DAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MovieManager.BLL.Services
@@ -22,23 +23,23 @@ namespace MovieManager.BLL.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<TModel?> GetByIdAsync(int id)
+        public async Task<TModel?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            var entity = await _repository.GetByIdAsync(id);
+            var entity = await _repository.GetByIdAsync(id, cancellationToken: cancellationToken);
             if (entity == null) return null;
             return _mapper.Map<TModel>(entity);
         }
 
-        public async Task<IReadOnlyList<TModel>> GetAllAsync()
+        public async Task<IReadOnlyList<TModel>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            var entities = await _repository.GetAllAsync();
+            var entities = await _repository.GetAllAsync(cancellationToken: cancellationToken);
             return _mapper.Map<IReadOnlyList<TModel>>(entities);
         }
 
         public async Task<TModel> CreateAsync(TModel model, CancellationToken cancellationToken = default)
         {
             var entity = _mapper.Map<TEntity>(model);
-            await _repository.AddAsync(entity);
+            await _repository.AddAsync(entity, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return _mapper.Map<TModel>(entity);
@@ -46,7 +47,7 @@ namespace MovieManager.BLL.Services
 
         public async Task<bool> UpdateAsync(TModel model, CancellationToken cancellationToken = default)
         {
-            var existingEntity = await _repository.GetByIdAsync(model.Id);
+            var existingEntity = await _repository.GetByIdAsync(model.Id, cancellationToken: cancellationToken);
 
             if (existingEntity == null) return false;
 
@@ -60,28 +61,13 @@ namespace MovieManager.BLL.Services
 
         public async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)
         {
-            var entity = await _repository.GetByIdAsync(id);
+            var entity = await _repository.GetByIdAsync(id, cancellationToken: cancellationToken);
             if (entity == null) return false;
 
             _repository.Remove(entity);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return true;
-        }
-
-        public Task<TModel> CreateAsync(TModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> UpdateAsync(TModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> DeleteAsync(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

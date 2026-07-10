@@ -19,7 +19,7 @@ namespace MovieManager.DAL.Repositories.Interfaces
             bool disableTracking = true,
             CancellationToken cancellationToken = default,
             params Expression<Func<T, object>>[] includes);
-        
+
         Task<IReadOnlyList<T>> FindAsync(
             Expression<Func<T, bool>> predicate,
             CancellationToken cancellationToken = default);
@@ -27,8 +27,5 @@ namespace MovieManager.DAL.Repositories.Interfaces
         Task AddAsync(T entity, CancellationToken cancellationToken = default);
         void Update(T entity);
         void Remove(T entity);
-        
-        Task SaveChangesAsync(CancellationToken cancellationToken = default);
-        void Delete<TEntity>(TEntity entity) where TEntity : class;
     }
 }
