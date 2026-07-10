@@ -47,7 +47,7 @@ namespace MovieManager.BLL.Services
 
         public async Task<bool> UpdateAsync(TModel model, CancellationToken cancellationToken = default)
         {
-            var existingEntity = await _repository.GetByIdAsync(model.Id, cancellationToken: cancellationToken);
+            var existingEntity = await _repository.GetByIdAsync(model.Id);
 
             if (existingEntity == null) return false;
 
@@ -61,7 +61,7 @@ namespace MovieManager.BLL.Services
 
         public async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)
         {
-            var entity = await _repository.GetByIdAsync(id, cancellationToken: cancellationToken);
+            var entity = await _repository.GetByIdAsync(id);
             if (entity == null) return false;
 
             _repository.Remove(entity);
