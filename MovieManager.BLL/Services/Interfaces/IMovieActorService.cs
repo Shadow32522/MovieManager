@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MovieManager.BLL.Services.Interfaces
 {
-    public interface IMovieActorService
+    public interface IMovieActorService 
     {
         Task<MovieActorModel?> GetByIdsAsync(int movieId, int actorId);
         Task<IReadOnlyList<MovieActorModel>> GetByMovieIdAsync(int movieId);

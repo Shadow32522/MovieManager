@@ -26,7 +26,7 @@ builder.Services.AddScoped<IGenericService<GenreModel>, GenericService<Genre, Ge
 builder.Services.AddScoped<IGenericService<MovieModel>, GenericService<Movie, MovieModel>>();
 builder.Services.AddScoped<IGenericService<ReviewModel>, GenericService<Review, ReviewModel>>();
 
-builder.Services.AddScoped<IGenericService<MovieActorModel>, GenericService<MovieActorModel, MovieActorModel>>();
+builder.Services.AddScoped<IMovieActorService, MovieActorService>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 

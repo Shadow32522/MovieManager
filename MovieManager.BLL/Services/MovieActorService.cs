@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MovieManager.BLL.Models;
+using MovieManager.BLL.Services.Interfaces;
 using MovieManager.DAL.Entities;
 using MovieManager.DAL.Repositories.Interfaces;
 using System;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace MovieManager.BLL.Services
 {
-    public class MovieActorService
+    public class MovieActorService : IMovieActorService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
