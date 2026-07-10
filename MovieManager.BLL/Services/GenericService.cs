@@ -3,13 +3,13 @@ using MovieManager.BLL.Services.Interfaces;
 using MovieManager.DAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace MovieManager.BLL.Services
 {
     public class GenericService<TEntity, TModel> : IGenericService<TModel>
-        where TEntity : class
-        where TModel : class
+        where TEntity : class, new()
+        where TModel : class, IModelWithId, new()
     {
         protected readonly IUnitOfWork _unitOfWork;
         protected readonly IGenericRepository<TEntity> _repository;
@@ -46,14 +46,7 @@ namespace MovieManager.BLL.Services
 
         public async Task<bool> UpdateAsync(TModel model)
         {
-            var idProperty = typeof(TModel).GetProperty("Id");
-            if (idProperty == null)
-            {
-                throw new InvalidOperationException("The model must contain an 'Id' property of type int to perform the update.");
-            }
-
-            int id = (int)idProperty.GetValue(model)!;
-            var existingEntity = await _repository.GetByIdAsync(id);
+            var existingEntity = await _repository.GetByIdAsync(model.Id);
 
             if (existingEntity == null) return false;
 
@@ -75,7 +68,5 @@ namespace MovieManager.BLL.Services
 
             return true;
         }
-
-
     }
 }
