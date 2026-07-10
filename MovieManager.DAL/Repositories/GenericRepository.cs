@@ -98,7 +98,7 @@ namespace MovieManager.DAL.Repositories
             await _dbSet.AddAsync(entity, cancellationToken);
         }
 
-        public void Update(T entity)
+        public async Task UpdateAsync(T entity)
         {
             if (entity == null)
             {
@@ -108,7 +108,7 @@ namespace MovieManager.DAL.Repositories
             _dbSet.Update(entity);
         }
 
-        public void Remove(T entity)
+        public async Task RemoveAsync(T entity)
         {
             if (entity == null)
             {
@@ -124,6 +124,11 @@ namespace MovieManager.DAL.Repositories
         }
 
         public void Delete<TEntity>(TEntity entity) where TEntity : class
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(T entity)
         {
             throw new NotImplementedException();
         }
