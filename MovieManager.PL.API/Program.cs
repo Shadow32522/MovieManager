@@ -26,10 +26,9 @@ builder.Services.AddScoped<IGenericService<GenreModel>, GenericService<Genre, Ge
 builder.Services.AddScoped<IGenericService<MovieModel>, GenericService<Movie, MovieModel>>();
 builder.Services.AddScoped<IGenericService<ReviewModel>, GenericService<Review, ReviewModel>>();
 
-builder.Services.AddScoped<IMovieActorService, MovieActorService>();
+builder.Services.AddScoped<IGenericService<MovieActorModel>, GenericService<MovieActorModel, MovieActorModel>>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
-
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
