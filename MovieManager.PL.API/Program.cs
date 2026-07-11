@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using MovieManager.BLL.Models;
+using MovieManager.BLL.Services;
+using MovieManager.BLL.Services.Interfaces;
 using MovieManager.DAL.Data;
 using MovieManager.DAL.Entities;
 using MovieManager.DAL.Repositories;
 using MovieManager.DAL.Repositories.Interfaces;
-using MovieManager.BLL.Models;
-using MovieManager.BLL.Services;
-using MovieManager.BLL.Services.Interfaces;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,8 @@ builder.Services.AddScoped<IGenericService<ReviewModel>, GenericService<Review, 
 
 builder.Services.AddScoped<IMovieActorService, MovieActorService>();
 
+
+
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddControllers();
@@ -41,6 +44,8 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.MapScalarApiReference();
 
 app.UseHttpsRedirection();
 
