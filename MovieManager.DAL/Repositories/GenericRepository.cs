@@ -44,7 +44,7 @@ namespace MovieManager.DAL.Repositories
 
             if (string.IsNullOrEmpty(keyName))
             {
-                throw new InvalidOperationException($"Nessuna chiave primaria trovata per l'entità {typeof(T).Name}");
+                throw new InvalidOperationException($"No primary key found for entity {typeof(T).Name}");
             }
 
             return await query.FirstOrDefaultAsync(e => EF.Property<int>(e, keyName) == id, cancellationToken);
@@ -82,7 +82,7 @@ namespace MovieManager.DAL.Repositories
         {
             if (predicate == null)
             {
-                throw new ArgumentNullException(nameof(predicate), "Il filtro di ricerca non può essere nullo.");
+                throw new ArgumentNullException(nameof(predicate), "Search filter cannot be null.");
             }
 
             return await _dbSet.AsNoTracking().Where(predicate).ToListAsync(cancellationToken);
@@ -92,7 +92,7 @@ namespace MovieManager.DAL.Repositories
         {
             if (entity == null)
             {
-                throw new ArgumentNullException(nameof(entity), "Impossibile aggiungere un'entità nulla.");
+                throw new ArgumentNullException(nameof(entity), "Cannot add a null entity.");
             }
 
             await _dbSet.AddAsync(entity, cancellationToken);
@@ -102,7 +102,7 @@ namespace MovieManager.DAL.Repositories
         {
             if (entity == null)
             {
-                throw new ArgumentNullException(nameof(entity), "Impossibile aggiornare un'entità nulla.");
+                throw new ArgumentNullException(nameof(entity), "Cannot update a null entity.");
             }
 
             _dbSet.Update(entity);
@@ -112,7 +112,7 @@ namespace MovieManager.DAL.Repositories
         {
             if (entity == null)
             {
-                throw new ArgumentNullException(nameof(entity), "Impossibile rimuovere un'entità nulla.");
+                throw new ArgumentNullException(nameof(entity), "Cannot remove a null entity.");
             }
 
             _dbSet.Remove(entity);
